@@ -23,6 +23,7 @@ currentTimeSecs = 0.0
 paused = False
 lastCheckedTime = time.time() 
 
+# State processing
 def processState():
 	if currentState == State.IDLE:
 		idle()
@@ -38,8 +39,6 @@ def idle():
 	pass
 
 def countdown():
-	# TODO: Countdown
-
 	if currentTimeSecs < 0:
 		currentState = State.ACTIVE
 	elif currentTimeSecs <= 1.5:
@@ -64,11 +63,13 @@ def end():
 	currentTimeSecs = 0.0
 	RunningLights(strip, 255, 0, 0, .25)
 
+# GUI
 def updateGUI():
 	timeStr = time.strftime('%M:%S', time.gmtime(round(currentTimeSecs)))
 	gui.setTime(timeStr)
 	gui.update()
 
+# Input
 def handleShortButton():
 	if currentState == State.IDLE:
 		currentTimeSecs = 0.0
@@ -87,6 +88,7 @@ def handleLongButton():
 	paused = False
 	currentTimeSecs = 0.0
 
+# Time
 def stepTime():
 	if !paused:
 		newTime = time.time()
