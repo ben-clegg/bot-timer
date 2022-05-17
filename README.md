@@ -19,4 +19,7 @@ Will require disabling some kernel modules - see https://github.com/jgarff/rpi_w
 - [x] Implement states
 - [x] Handle button input
 - [ ] Add sound
+  - [x] Countdown
+  - [ ] Change countdown sound to something more copyright friendly?
+  - [ ] End of round
 - [ ] Tweak LEDs
