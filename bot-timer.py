@@ -33,6 +33,7 @@ def processState():
 		active()
 	elif currentState == State.END:
 		end()
+	pass
 
 def idle():
 	RainbowCycle(strip, .1)
@@ -57,17 +58,20 @@ def active():
 		
 	if currentTimeSecs > ROUND_TIME_LIMIT:
 		currentState = State.END
+	pass
 
 def end():
 	# Red lights
 	currentTimeSecs = 0.0
 	RunningLights(strip, 255, 0, 0, .25)
+	pass
 
 # GUI
 def updateGUI():
 	timeStr = time.strftime('%M:%S', time.gmtime(round(currentTimeSecs)))
 	gui.setTime(timeStr)
 	gui.update()
+	pass
 
 # Input
 def handleShortButton():
@@ -82,11 +86,13 @@ def handleShortButton():
 		paused = !paused
 	elif currentState == State.END:
 		currentTimeSecs = 0.0
+	pass
 
 def handleLongButton():
 	currentState = State.IDLE
 	paused = False
 	currentTimeSecs = 0.0
+	pass
 
 # Time
 def stepTime():
@@ -99,6 +105,13 @@ def stepTime():
 		lastCheckedTime = newTime
 	else:
 		lastCheckedTime = time.time()
+	pass
+
+
+### Main control
+
+# Init button 
+button = Button(handleShortButton, handleLongButton)
 
 # Main control loop
 while True:

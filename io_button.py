@@ -5,30 +5,34 @@ import time
 
 class Button:
 
-	def __init__(self):
+	PIN_BUTTON = 12
+	LONG_PRESS_THRESHOLD = 1.0
+
+	def __init__(self, functionShortPress, functionLongPress):
 		GPIO.setmode(GPIO.BOARD)
+		# Initialise GPIO inputs in pull-up resistor mode
+        GPIO.setup(PIN_BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+		
+		self.shortPressFunc = functionShortPress
+		self.longPressFunc = functionLongPress
+		self.pressStartTime = 0.0
+		
+		GPIO.add_event_detect(buttonPin, GPIO.RISING, callback = pressStarted, bouncetime=300)
+		GPIO.add_event_detect(buttonPin, GPIO.FALLING, callback = pressEnded, bouncetime=300)
+    
+		pass
 
-		# GPIO Pin definitions
-		
-		self.p_led = [13,19]
-		self.p_led[0] = 13 # Green
-		self.p_led[1] = 19 # Red
-		self.p_buzzer = 22		
-		GPIO.setup(self.p_led[0], GPIO.OUT)
-		GPIO.setup(self.p_led[1], GPIO.OUT)
-		GPIO.setup(self.p_buzzer, GPIO.OUT)
-		
-		# Set all on
-		GPIO.output(self.p_led[0], True)	
-		GPIO.output(self.p_led[1], True)	
-		GPIO.output(self.p_buzzer, True)	
-		
-		time.sleep(1)
+	def pressStarted(self, channel):
+		self.pressStartTime = time.time()
+		pass
 
-		# Set all off
-		GPIO.output(self.p_led[0], False)	
-		GPIO.output(self.p_led[1], False)	
-		GPIO.output(self.p_buzzer, False)	
+	def pressEnded(self, channel):
+		pressLength = time.time() - self.pressStartTime
+
+		if (pressLength < LONG_PRESS_THRESHOLD):
+			self.shortPressFunc()
+		else:
+			self.longPressFunc()
 
 		pass
 	

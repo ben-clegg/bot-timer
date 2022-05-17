@@ -33,6 +33,7 @@ class GUI:
 		pygame.display.toggle_fullscreen()
 
 		self.update()
+		pass
 
 	def update(self):
 		self.screen.fill((0,0,0))
@@ -42,7 +43,9 @@ class GUI:
 		self.screen.blit(self.timeDisplay, (8,424))
 		
 		pygame.display.flip()
+		pass
 
 	def setTime(self, timeStr):
 		self.timeText = timeStr
+		pass
 	
