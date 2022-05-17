@@ -3,6 +3,7 @@
 import time 
 import serial
 from io_gui import GUI, UserPermissionException
+from io_sound import Sound
 from io_button import Button
 from state import State
 from RPi_WS2812/function_library import *
@@ -13,6 +14,7 @@ ROUND_TIME_LIMIT = 180 # Time of rounds, in seconds
 
 # Input/Output
 gui = GUI()
+sound = Sound()
 gpio = GPIOAccess()
 strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL, LED_STRIP)
 strip.Begin()
@@ -49,7 +51,7 @@ def countdown():
 	pass
 
 def active():
-	if !paused:
+	if not paused:
 		# Green
 		RunningLights(strip, 0, 255, 0, .25)
 	else:
@@ -75,20 +77,24 @@ def updateGUI():
 
 # Input
 def handleShortButton():
+	# Idle -> Countdown
 	if currentState == State.IDLE:
 		currentTimeSecs = 0.0
+		paused = False
 		currentState = State.COUNTDOWN
+	# Countdown -> Idle (abort countdown)
 	elif currentState == State.COUNTDOWN:
+		sound.stopCountdown()
 		currentTimeSecs = 3.0
-		currentState = State.COUNTDOWN
-		paused = !paused
+		currentState = State.IDLE
+	# During round - toggle pause
 	elif currentState == State.ACTIVE:
-		paused = !paused
-	elif currentState == State.END:
-		currentTimeSecs = 0.0
+		paused = not paused
+	# Do nothing for end
 	pass
 
 def handleLongButton():
+# Reset to idle on long button
 	currentState = State.IDLE
 	paused = False
 	currentTimeSecs = 0.0
@@ -96,7 +102,7 @@ def handleLongButton():
 
 # Time
 def stepTime():
-	if !paused:
+	if not paused:
 		newTime = time.time()
 		if currentState == State.COUNTDOWN:
 			currentTimeSecs -= (newTime - lastCheckedTime)
