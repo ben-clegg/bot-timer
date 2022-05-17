@@ -17,6 +17,6 @@ Will require disabling some kernel modules - see https://github.com/jgarff/rpi_w
 
 - [x] Implement basic timer logic
 - [x] Implement states
-- [ ] Handle button input
+- [x] Handle button input
 - [ ] Add sound
 - [ ] Tweak LEDs
