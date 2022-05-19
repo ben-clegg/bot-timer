@@ -50,6 +50,7 @@ def countdown():
     pass
 
 def active():
+    global currentTimeSecs
     if not paused:
         # Green
         SolidColor(strip, 255, 255, 255)
@@ -63,6 +64,7 @@ def active():
     pass
 
 def end():
+    global currentTimeSecs
     # Red lights
     currentTimeSecs = 0.0
     RunningLights(strip, 255, 0, 0, .25)
@@ -70,6 +72,7 @@ def end():
 
 # GUI
 def updateGUI():
+    global currentTimeSecs
     timeStr = time.strftime('%M:%S', time.gmtime(round(currentTimeSecs)))
     gui.setTime(timeStr)
     gui.update()
@@ -77,6 +80,7 @@ def updateGUI():
 
 # Input
 def handleShortButton():
+    global currentTimeSecs
     # Idle -> Countdown
     if currentState == State.IDLE:
         currentTimeSecs = 0.0
@@ -96,7 +100,8 @@ def handleShortButton():
     pass
 
 def handleLongButton():
-# Reset to idle on long button
+    global currentTimeSecs
+    # Reset to idle on long button
     currentState = State.IDLE
     paused = False
     currentTimeSecs = 0.0
@@ -104,6 +109,7 @@ def handleLongButton():
 
 # Time
 def stepTime():
+    global currentTimeSecs
     if not paused:
         newTime = time.time()
         if currentState == State.COUNTDOWN:
