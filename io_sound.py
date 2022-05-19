@@ -5,7 +5,7 @@ import pygame
 class Sound():
     def __init__(self):
         pygame.mixer.init()
-        self.sfxCountdown = pygame.mixer.Sound('sound/321activate.wav')
+        self.sfxCountdown = pygame.mixer.Sound('sound/321Fight.wav')
         pass
 
     def countdown(self):
