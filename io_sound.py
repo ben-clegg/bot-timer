@@ -3,10 +3,10 @@
 import pygame
 
 class Sound():
-	def __init__(self):
+    def __init__(self):
         pygame.mixer.init()
         self.sfxCountdown = pygame.mixer.Sound('sound/321activate.wav')
-		pass
+        pass
 
     def countdown(self):
         self.sfxCountdown.play()
