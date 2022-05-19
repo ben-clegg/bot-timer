@@ -53,10 +53,10 @@ def countdown():
 def active():
     if not paused:
         # Green
-        RunningLights(strip, 0, 255, 0, .25)
+        SolidColor(strip, 255, 255, 255)
     else:
         # Amber
-        RunningLights(strip, 255, 191, 00, .25) 
+        FadeInOut(strip, 255, 191, 00, .25) 
         
     if currentTimeSecs > ROUND_TIME_LIMIT:
         currentState = State.END

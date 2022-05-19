@@ -37,6 +37,10 @@ def SetAll(strip, color):
     """Wipe color across display a pixel at a time."""
     for i in range(strip.numPixels()):
         strip.setPixelColor(i, color)
+        
+def SolidColor(strip, red, green, blue):
+    SetAll(strip, Color(red, green, blue))
+    strip.show()
 
 def FadeRGB(strip):
     for i in range(0, 3):
