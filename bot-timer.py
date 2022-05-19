@@ -59,6 +59,7 @@ def active():
         FadeInOut(strip, 255, 191, 00, .25) 
         
     if currentTimeSecs > ROUND_TIME_LIMIT:
+        sound.cease()
         currentState = State.END
     pass
 
@@ -84,12 +85,14 @@ def handleShortButton():
         currentState = State.COUNTDOWN
     # Countdown -> Idle (abort countdown)
     elif currentState == State.COUNTDOWN:
-        sound.stopCountdown()
+        sound.stopAll()
         currentTimeSecs = 3.0
         currentState = State.IDLE
     # During round - toggle pause
     elif currentState == State.ACTIVE:
         paused = not paused
+        if paused:
+           sound.pause() 
     # Do nothing for end
     pass
 
