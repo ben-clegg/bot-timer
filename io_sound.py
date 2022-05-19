@@ -6,10 +6,10 @@ class Sound():
     def __init__(self):
         pygame.mixer.init()
         self.sfx321Fight = pygame.mixer.Sound('sound/321Fight.wav')
-        self.sfx1MinRemaining = pygame.mixer.Sound('sound/321Fight.wav')
-        self.sfx30SecsRemaining = pygame.mixer.Sound('sound/321Fight.wav')
-        self.sfxCease = pygame.mixer.Sound('sound/321Fight.wav')
-        self.sfxPause = pygame.mixer.Sound('sound/321Fight.wav')
+        self.sfx1MinRemaining = pygame.mixer.Sound('sound/1MinuteRemaining.wav')
+        self.sfx30SecsRemaining = pygame.mixer.Sound('sound/30SecondsRemaining.wav')
+        self.sfxCease = pygame.mixer.Sound('sound/Cease.wav')
+        self.sfxPause = pygame.mixer.Sound('sound/Pause.wav')
         self.sfxEndingCountdown = pygame.mixer.Sound('sound/Countdown.wav')
         pass
 
