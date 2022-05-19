@@ -15,7 +15,6 @@ ROUND_TIME_LIMIT = 180 # Time of rounds, in seconds
 # Input/Output
 gui = GUI()
 sound = Sound()
-gpio = GPIOAccess()
 strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL, LED_STRIP)
 strip.Begin()
 

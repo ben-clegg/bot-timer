@@ -3,10 +3,10 @@
 import RPi.GPIO as GPIO
 import time
 
+PIN_BUTTON = 12
+LONG_PRESS_THRESHOLD = 1.0
+    
 class Button:
-
-    PIN_BUTTON = 12
-    LONG_PRESS_THRESHOLD = 1.0
 
     def __init__(self, functionShortPress, functionLongPress):
         GPIO.setmode(GPIO.BOARD)
@@ -17,16 +17,23 @@ class Button:
         self.longPressFunc = functionLongPress
         self.pressStartTime = 0.0
         
-        GPIO.add_event_detect(buttonPin, GPIO.RISING, callback = pressStarted, bouncetime=300)
-        GPIO.add_event_detect(buttonPin, GPIO.FALLING, callback = pressEnded, bouncetime=300)
+        GPIO.add_event_detect(PIN_BUTTON, GPIO.BOTH, callback = self.pressChange, bouncetime=300)
     
         pass
+    
+    def pressChange(self, channel):
+        # Check high or low, determine if rose / fell
+        if GPIO.input(PIN_BUTTON):
+            self.pressStarted()
+        else:
+            self.pressEnded()
+        pass
 
-    def pressStarted(self, channel):
+    def pressStarted(self):
         self.pressStartTime = time.time()
         pass
 
-    def pressEnded(self, channel):
+    def pressEnded(self):
         pressLength = time.time() - self.pressStartTime
 
         if (pressLength < LONG_PRESS_THRESHOLD):
