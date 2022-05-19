@@ -6,8 +6,8 @@ from io_gui import GUI, UserPermissionException
 from io_sound import Sound
 from io_button import Button
 from state import State
-from RPi_WS2812/function_library import *
-from RPi_WS2812/neopixel import Adafruit_NeoPixel
+from function_library import *
+from neopixel import Adafruit_NeoPixel
 
 # Const
 ROUND_TIME_LIMIT = 180 # Time of rounds, in seconds
